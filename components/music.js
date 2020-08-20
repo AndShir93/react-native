@@ -1,21 +1,23 @@
-import { StatusBar } from 'expo-status-bar'
-import React from 'react'
-import { StyleSheet, Text, View, Button } from 'react-native'
-import { NavigationContainer } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
+import React from "react";
+import { createStackNavigator, createAppContainer } from "@react-navigation/native";
 
-export default function Music({ navigation }) {
-    return (
-        <View style={styles.wrapper}>
-            <Text>Music</Text>
-        </View>
-    );
-}
+import LandingScreen from "../react/screens/LandingScreen";
+import PlaylistScreen from "../react/screens/PlaylistScreen";
 
-const styles = StyleSheet.create({
-    wrapper: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+const AppNavigator = createStackNavigator(
+  {
+    Landing: {
+      screen: LandingScreen
+    },
+    Playlist: {
+      screen: PlaylistScreen
     }
-})
+  },
+  { initialRouteName: "Landing" }
+);
+
+const AppContainer = createAppContainer(AppNavigator);
+
+export default function App() {
+  return <AppContainer />;
+}

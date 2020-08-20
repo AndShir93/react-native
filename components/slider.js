@@ -42,7 +42,7 @@ class Slider extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>Slder</Text>
+                <Text>Slider</Text>
                 <View style={styles.slider__wrapper}>
                     <Image style={styles.slider__images} source={ this.props[this.props.isLocal?'localImages':'remoteImages'][this.props.current] }/>
                 </View>

@@ -1,19 +1,30 @@
-import { StatusBar } from 'expo-status-bar'
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React, { useCallback } from "react";
+import { Alert, Button, Linking, StyleSheet, View } from "react-native";
 
-export default function Link({ navigation }) {
-    return (
-        <View style={styles.wrapper}>
-            <Text>Ссылка</Text>
-        </View>
-    );
+const supportedURL = "https://q-digital.org";
+
+const OpenURLButton = ({ url, children }) => {
+  const handlePress = useCallback(async () => {
+    const supported = await Linking.canOpenURL(url);
+
+    if (supported) {
+      await Linking.openURL(url);
+    } else {
+      Alert.alert(`Don't know how to open this URL: ${url}`);
+    }
+  }, [url]);
+
+  return <Button title={children} onPress={handlePress} />;
 }
 
+export default function Link() {
+  return (
+    <View style={styles.container}>
+      <OpenURLButton url={supportedURL}>Q-digital</OpenURLButton>
+    </View>
+  );
+};
+
 const styles = StyleSheet.create({
-    wrapper: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    }
-})
+  container: { flex: 1, justifyContent: "center", alignItems: "center" },
+});
